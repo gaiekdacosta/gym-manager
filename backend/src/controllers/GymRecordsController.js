@@ -13,7 +13,7 @@ module.exports = {
 
     async create(_req, res) {
         const { name, code, date, plane } = _req.body;
-        console.log(_req.body)
+
         try {
             const createClient = await localhost("clients").insert({ name, code, date, plane });
             return res.json(createClient);
@@ -21,6 +21,19 @@ module.exports = {
         } catch (err) {
             console.log(err.message);
             return res.status(500).json({ message: 'falha ao adicionar registros' });
+        }
+    },
+
+    async edit(_req, res) {
+        const { name, code, date, plane, oldCode } = _req.body;
+
+        try {
+            const editClient = await localhost("clients").where({ code: oldCode })
+                .update({ name: name, code: code, date: date, plane: plane })
+            return res.json(editClient)
+        } catch (err) {
+            console.log(err.message);
+            return res.status(500).json({ message: 'falha ao editar registros' })
         }
     },
 
@@ -36,4 +49,5 @@ module.exports = {
             return res.status(500).json({ message: 'falha ao remover registros' });
         }
     }
+
 }

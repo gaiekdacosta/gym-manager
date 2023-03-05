@@ -20,13 +20,13 @@ const Trash: React.FC<trashProps> = ({ code, getRecords }) => {
         })
             .then(() => {
                 toast({
-                    title: 'O item foi removido com sucesso',
+                    title: 'Item removido com sucesso',
                     status: 'success',
                     duration: 3000,
                     isClosable: true,
                 })
                 getRecords()
-            }).catch((err) => {
+            }).catch(() => {
                 toast({
                     title: 'Ops, ocorreu um erro!',
                     status: 'error',

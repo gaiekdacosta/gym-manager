@@ -16,7 +16,6 @@ interface editProps {
     getRecords: () => any
 }
 
-
 const Edit: React.FC<editProps> = ({ name, date, plane, code, getRecords }) => {
     const [nameEdit, setNameEdit] = useState<string>(name)
     const [codeEdit, setCodeEdit] = useState<number>(code)
@@ -31,13 +30,17 @@ const Edit: React.FC<editProps> = ({ name, date, plane, code, getRecords }) => {
     const handleDateEdit = (e: any) => setDateEdit(e.target.value)
     const handlePlaneEdit = (e: any) => setPlaneEdit(e.target.value)
 
-    const handleDelete = () => {
+    const handleEdit = () => {
         api.patch('/edit', {
-            code: code
+            name: nameEdit,
+            code: codeEdit,
+            date: moment(dateEdit).format('YYYY-MM-DD'),
+            plane: planeEdit,
+            oldCode: code
         })
             .then(() => {
                 toast({
-                    title: 'O item foi editado com sucesso',
+                    title: 'Item editado com sucesso',
                     status: 'success',
                     duration: 3000,
                     isClosable: true,
@@ -57,7 +60,6 @@ const Edit: React.FC<editProps> = ({ name, date, plane, code, getRecords }) => {
         let randomNumber = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
         return setCodeEdit(randomNumber)
     }
-
 
     return (
         <>
@@ -91,28 +93,14 @@ const Edit: React.FC<editProps> = ({ name, date, plane, code, getRecords }) => {
                     <FormLabel mt='5px'>Plano</FormLabel>
                     <Select cursor='pointer' value={planeEdit}
                         onChange={(e) => handlePlaneEdit(e)}>
-                        {plane === 'Básico' &&
-                            <>
-                                <option>Básico</option>
-                                <option>Padrão</option>
-                                <option>Plus</option>
-                            </>}
-                        {plane === 'Padrão' &&
-                            <>
-                                <option>Padrão</option>
-                                <option>Plus</option>
-                                <option>Básico</option>
-                            </>}
-                        {plane === 'Plus' &&
-                            <>
-                                <option>Plus</option>
-                                <option>Padrão</option>
-                                <option>Básico</option>
-                            </>}
+                        <option>Básico</option>
+                        <option>Padrão</option>
+                        <option>Plus</option>
                     </Select>
                     <ModalFooter justifyContent='center'>
-                        <Button bg='#3700B3' color='whitesmoke' w='60%' _hover={{ transform: 'scale(1.1)' }}>
-                            Salvar
+                        <Button bg='#3700B3' color='whitesmoke' w='60%' _hover={{ transform: 'scale(1.1)' }}
+                            onClick={handleEdit}>
+                            Editar
                         </Button>
                     </ModalFooter>
                 </ModalContent>

@@ -8,6 +8,7 @@ routes
 
     .get('/records', GymRecordsController.show)
     .post('/create', GymRecordsController.create)
+    .patch('/edit', GymRecordsController.edit)
     .patch('/trash', GymRecordsController.trash)
 
 module.exports = routes

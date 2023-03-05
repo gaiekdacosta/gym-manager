@@ -35,7 +35,7 @@ const Create: React.FC<createProps> = ({ getRecords }) => {
         })
             .then(() => {
                 toast({
-                    title: 'O item foi adicionado com sucesso',
+                    title: 'Item adicionado com sucesso',
                     status: 'success',
                     duration: 3000,
                     isClosable: true,
@@ -59,9 +59,10 @@ const Create: React.FC<createProps> = ({ getRecords }) => {
 
     return (
         <>
-            <Box position='absolute' _hover={{ bg: '#6738d2' }} w='40px' h='40px' p='8px'
-                transition='0.8s' left='90%' top='90%' bg='#3700B3' color='whitesmoke'
-                borderRadius='2xl' cursor='pointer' zIndex='3' onClick={onOpen}>
+            <Box position='fixed' w='40px' h='40px'
+                p='8px' bottom='2%' right='6%' bg='#3700B3' boxShadow='xl' zIndex='2'
+                color='whitesmoke' borderRadius='2xl' cursor='pointer' onClick={onOpen}
+                _hover={{ transition: '0.5s', transform: 'scale(1.1)' }}>
                 <MdAdd style={{ width: '25px', height: '25px' }} />
             </Box>
             <Modal isOpen={isOpen} onClose={onClose}>
